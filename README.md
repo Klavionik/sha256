@@ -1,11 +1,13 @@
 # SHA-256 на коленке
 
-## Запуск
-`$ cd sha256`  
-`$ pip install pipenv`  
-`$ pipenv install`  
-`$ pipenv shell`  
-`$ python hasher.py строка [slow]`
+Спасибо за вдохновение этому видео: [How Does SHA-256 Work?](https://www.youtube.com/watch?v=f9EbD6iY9zI)
+
+## Использование
+`git@github.com:Klavionik/sha256.git`  
+`cd sha256`  
+`poetry install`  
+`poetry run sha256 <string>`
 
 ## Тесты
-`$ python -m unittest`
+`poetry install`  
+`python -m unittest`

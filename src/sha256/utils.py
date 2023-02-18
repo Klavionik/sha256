@@ -1,52 +1,51 @@
+import math
 from functools import partial
-from math import floor, sqrt
+from typing import Iterable
 
 
-def shr(value, bits_num):
+def shr(value: int, bits_num: int):
     """
-    Возвращает результат побитового сдвига числа вправо.
+    Returns result of a bitwise right shift.
 
     Пример:
     value = 587 (1001001011)
     bits_num = 3
     shr(587, 3) = 73 (0001001001)
 
-    :param value: целое число
-    :param bits_num: количество битов, на которое будет сдвинуто целое число
+    :param value: an integer
+    :param bits_num: number of bits to shift
     """
-    shifted = value >> bits_num
-    return shifted
+    return value >> bits_num
 
 
-def rotr(value: int, bits_num: int, max_bits=32):
+def rotr(value: int, bits_num: int, max_bits: int = 32):
     """
-    Возвращает результат циклического сдвига числа вправо.
+    Returns result of a bitwise right rotate.
 
     Пример:
     value = 5234 (00000000000000000001010001110010)
     bits_num = 7
     rotr(5234, 7) = 3825205288 (11100100000000000000000000101000)
 
-    :param value: целое число
-    :param bits_num: количество битов, на которое будет выполнен сдвиг
-    :param max_bits: максимальная битность результата сдвига
+    :param value: an integer
+    :param bits_num: number of bits to shift
+    :param max_bits: max amount of bits limiting the result
     """
-    mask = 2 ** max_bits - 1
+    mask = 2**max_bits - 1
     right = value >> bits_num
     left = value << max_bits - bits_num
     result = right | left & mask
     return result
 
 
-def summ(*values, max_bits=32):
+def summ(*values: Iterable[int], max_bits: int = 32):
     """
-    Возвращает результат суммирования чисел.
+    Returns sum of integers limited by a given number of bits.
 
-    :param values: список или тапл чисел
-    :param max_bits: максимальая битность суммы чисел
+    :param values: an iterable of integers
+    :param max_bits: max amount of bits limiting the result
     """
-    result = sum(values) % 2 ** max_bits
-    return result
+    return sum(values) % 2**max_bits
 
 
 def sigma0(value: int):
@@ -83,11 +82,11 @@ def bsigma1(value: int):
 
 def choice(x: int, y: int, z: int):
     """
-    Возвращает число, побитово составленное из значений y и z
-    на основе числа x: если x = 1, выбирает значение y, если
-    x = 0, выбирает значение z.
+    Returns a number depending on the value of x:
+    if x = 1, choose y,
+    if x = 0, choose z.
 
-    Пример:
+    Example:
     x: 00000000111111110000000011111111
     y: 00000000000000001111111111111111
     z: 11111111111111110000000000000000
@@ -100,30 +99,24 @@ def choice(x: int, y: int, z: int):
 
 def majority(x: int, y: int, z: int):
     """
-    Возвращает число, побитово составленное из значений x, y, z
-    путем выбора самого частого бита среди x, y, z.
+    Returns a number depending on the most common bit across x, y, z.
 
-    Пример:
+    Example:
     x: 00000000111111110000000011111111
     y: 00000000000000001111111111111111
     z: 11111111111111110000000000000000
        --------------------------------
        00000000111111110000000011111111
     """
-    result = (x & y) ^ (x & z) ^ (y & z)
-    return result
-
-
-def join(strings):
-    return ''.join(strings)
+    return (x & y) ^ (x & z) ^ (y & z)
 
 
 def fractional(x):
-    return x - floor(x)
+    return x - math.floor(x)
 
 
 def first_32_bits(x):
-    return floor(x * 2 ** 32)
+    return math.floor(x * 2**32)
 
 
 def cube_root(x):
@@ -131,7 +124,7 @@ def cube_root(x):
 
 
 def initial_hash(primes):
-    return list(map(first_32_bits, map(fractional, map(sqrt, primes))))
+    return list(map(first_32_bits, map(fractional, map(math.sqrt, primes))))
 
 
 def constants(primes):
@@ -142,23 +135,16 @@ basetwo = partial(int, base=2)
 
 
 def bin8(value):
-    return format(value, '08b')
+    return format(value, "08b")
 
 
 def bin32(value):
-    return format(value, '032b')
+    return format(value, "032b")
 
 
 def bin64(value):
-    return format(value, '064b')
+    return format(value, "064b")
 
 
 def print_bin32(text, value):
     return print(text, bin32(value))
-
-
-def set_speed(speed):
-    if speed == 'normal':
-        return 0
-    if speed == 'slow':
-        return 1

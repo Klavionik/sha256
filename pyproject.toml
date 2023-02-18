@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "sha256"
+version = "0.1.0"
+description = ""
+authors = ["Roman Vlasenko <klavionik@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+progressbar2 = "^4.2.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+flake8 = "^6.0.0"
+flake8-bugbear = "^23.2.13"
+isort = "^5.12.0"
+
+[tool.isort]
+profile = "black"
+
+[tool.poetry.scripts]
+sha256 = "sha256.__main__:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
